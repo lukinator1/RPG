@@ -9,6 +9,7 @@ TagManager:
   - NPC
   - Environment
   - PlayerParty
+  - Item
   layers:
   - Default
   - TransparentFX

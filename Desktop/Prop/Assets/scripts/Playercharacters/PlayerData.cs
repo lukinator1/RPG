@@ -7,9 +7,10 @@ public class PlayerData
 {
     public string name;
     public int partyposition;
+    public int lvl;
     public float HP;
     public float mana;
-    public float lvl;
+    public Inventory inventory;
     public float currency;
     public float xp;
     public Sprite[] battleentitysprites;

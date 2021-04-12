@@ -4,18 +4,25 @@ using System;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class PlayerParty : MonoBehaviour
+public class PlayerParty : MonoBehaviour //representing the player party sprite/entity that you'll see in the open world
 {
+    List<PlayerCharacter> playerchars;
     public int partysize;
     public float speed;
     public Rigidbody2D rigidbody;
     public AudioSource playeraudio;
     public AudioClip[] audioclips;
+    List<GameObject> nearbygameobjects = new List<GameObject>();
+    bool nearitem = false;
     int walkingsurfaceclip; //0 = grass
     bool walking = false; //walking toggle to determine audio
     // Start is called before the first frame update
     void Start()
     {
+        /*if (playerchars.Count != partysize)
+        {
+            playerchars.AddRange(this.gameObject.GetComponentsInChildren<PlayerCharacter>());
+        }*/
         playeraudio.clip = audioclips[0];
     }
     
@@ -26,6 +33,29 @@ public class PlayerParty : MonoBehaviour
         float v = Input.GetAxisRaw("Vertical");
         rigidbody.velocity = new Vector2(h * speed, v * speed);
         Vector2 notmoving = new Vector2(0, 0);
+
+        if (Input.GetKeyDown(KeyCode.E))
+            {
+            if (nearbygameobjects.Count != 0)
+                {
+                Interact(nearbygameobjects[0]);
+                }
+            }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log(nearbygameobjects.Count.ToString() + " nearbygameobjects: ");
+            for (int i = 0; i < nearbygameobjects.Count; i++)
+            {
+                Debug.Log(nearbygameobjects[i].tag);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            Debug.Log(GameObject.Find("Main Character").GetComponentInChildren<PlayerCharacter>().playerdata.inventory.spaceremaining.ToString() + GameObject.Find("Main Character").GetComponentInChildren<PlayerCharacter>().playerdata.inventory.firstopenspace.ToString());
+            Debug.Log(GameObject.Find("Main Character").GetComponentInChildren<PlayerCharacter>().playerdata.inventory.items[0].name);
+        }
 
         if (rigidbody.velocity == notmoving && walking == true)
         {
@@ -43,7 +73,7 @@ public class PlayerParty : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Collision with playerparty and " + other.name + " occurred.");
-        if (playeraudio.clip != audioclips[0]) //set to default steps if not that alreadu
+        if (playeraudio.clip != audioclips[0]) //set to default steps if not that already
         {
             playeraudio.Pause();
             playeraudio.clip = audioclips[0];
@@ -51,6 +81,21 @@ public class PlayerParty : MonoBehaviour
             {
                 playeraudio.Play();
             }
+        }
+        if (other.gameObject.tag == "Environment"){
+            if (other.gameObject.name.Substring(0, 5) == "Grass")
+            {
+                playeraudio.Pause();
+                playeraudio.clip = audioclips[1];
+                if (walking)
+                {
+                    playeraudio.Play();
+                }
+            }
+        }
+        if (other.gameObject.tag == "Item") //probably want to calculate what it's closer to here
+        {
+            nearbygameobjects.Add(other.gameObject);
         }
         if (other.gameObject.tag == "Enemy")  //send all data to battle scene
         {
@@ -87,27 +132,18 @@ public class PlayerParty : MonoBehaviour
             BattleSceneGlobalData.battlesceneglobalinstance.previousscene = SceneManager.GetActiveScene().name;
             SceneManager.LoadScene("battle scene");
         }
-        else if (other.gameObject.tag == "Environment"){
-            if (other.gameObject.name.Substring(0, 5) == "Grass")
-            {
-                playeraudio.Pause();
-                playeraudio.clip = audioclips[1];
-                if (walking)
-                {
-                    playeraudio.Play();
-                }
-            }
-        }
-        /*else if (other.gameObject.tag == "NPC")f
+        /*else if (other.gameObject.tag == "NPC")
         {
             rigidbody.velocity = new Vector2(0, 0);
         }*/
     }
 
-    /*void OnTriggerStay2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D other)
     {
-        rigidbody.velocity = new Vector2(0, 0);
-    }*/
+        //nearbygameobjects.calculateDistance //probably want to calculate what it's closer to here
+        //nearbygameobjects.sortByClosest
+
+    }
 
     void OnTriggerExit2D(Collider2D other)
     {
@@ -119,6 +155,44 @@ public class PlayerParty : MonoBehaviour
             if (walking)
             {
                 playeraudio.Play();
+            }
+        }
+        if (other.gameObject.tag == "Item" || other.gameObject.tag == "NPC")
+        {
+            nearbygameobjects.Remove(other.gameObject);
+        }
+    }
+
+    bool pickUp(Itempiece itempiece)
+    {
+        PlayerCharacter[] playerchars = this.gameObject.GetComponentsInChildren<PlayerCharacter>();
+        for (int i = 0; i < playerchars.Length; i++) //1st char with space picks it up
+        {
+            //Debug.Log(playerchars[i].playerdata.inventory.firstopenspace);
+            if (playerchars[i].playerdata.inventory.addToInventory(itempiece.item))
+            {
+                return true;
+            }
+        }
+        return false; 
+    }
+
+    void Interact(GameObject othergameobject)
+    {
+        if (othergameobject.tag == "NPC")
+        {
+
+        }
+        else if (othergameobject.tag == "Item")
+        {
+            if (pickUp(othergameobject.GetComponentInChildren<Itempiece>()) == true)
+            {
+                nearbygameobjects.Remove(othergameobject);
+                Destroy(othergameobject);
+            }
+            else //say that you're out of inventory space here
+            {
+                Debug.Log("I'm out of inventory space");
             }
         }
     }

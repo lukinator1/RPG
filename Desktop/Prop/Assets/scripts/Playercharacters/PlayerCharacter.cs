@@ -4,18 +4,18 @@ using UnityEditor;
 using UnityEngine;
 
 public class PlayerCharacter : MonoBehaviour
-{ 
-    public PlayerData localPlayerCharacterData = new PlayerData();
+{
+    public PlayerData playerdata = new PlayerData();
     // Start is called before the first frame update
     void Start()
     {
-        if (!PlayerCharacterGlobalData.playercharacterglobalinstance.playercharacters.ContainsKey(localPlayerCharacterData.name))
+        if (!PlayerCharacterGlobalData.playercharacterglobalinstance.playercharacters.ContainsKey(playerdata.name))
         {
-            PlayerCharacterGlobalData.playercharacterglobalinstance.playercharacters.Add(localPlayerCharacterData.name, localPlayerCharacterData);
+            PlayerCharacterGlobalData.playercharacterglobalinstance.playercharacters.Add(playerdata.name, playerdata);
         }
         else
         {
-            localPlayerCharacterData = PlayerCharacterGlobalData.playercharacterglobalinstance.playercharacters[localPlayerCharacterData.name];
+            playerdata = PlayerCharacterGlobalData.playercharacterglobalinstance.playercharacters[playerdata.name];
         }
     }
 
@@ -27,17 +27,33 @@ public class PlayerCharacter : MonoBehaviour
 
     public void SavePlayer()
     {
-        PlayerCharacterGlobalData.playercharacterglobalinstance.playercharacters[localPlayerCharacterData.name] = localPlayerCharacterData;
+        PlayerCharacterGlobalData.playercharacterglobalinstance.playercharacters[playerdata.name] = playerdata;
     }
 
     public void sendDataToBattlescene()
     {
-        BattleSceneGlobalData.battlesceneglobalinstance.players[localPlayerCharacterData.partyposition] = this;
+        BattleSceneGlobalData.battlesceneglobalinstance.players[playerdata.partyposition] = this;
     }
 
-    public void calculateLevelUp(PlayerData pdata)
+    public void calculateLevelUp()
     {
-
+        int lvl = playerdata.lvl;
+        if (playerdata.xp >= PlayerCharacterGlobalData.playercharacterglobalinstance.levels[lvl] && lvl <= 100) //100 max lvl for now
+        {
+            float xpleftover = playerdata.xp - PlayerCharacterGlobalData.playercharacterglobalinstance.levels[lvl];
+            lvl++;
+            while (xpleftover >= PlayerCharacterGlobalData.playercharacterglobalinstance.levels[lvl] && lvl <= 100) //check to see if got overlevels
+            {
+                xpleftover = playerdata.xp - PlayerCharacterGlobalData.playercharacterglobalinstance.levels[lvl];
+                lvl++;
+            }
+            playerdata.lvl = lvl;
+            return;
+        }
+        if (lvl >= 100) //if at max lvl, no more xp gains
+        {
+            playerdata.xp = -1;
+        }
     }
 
 }

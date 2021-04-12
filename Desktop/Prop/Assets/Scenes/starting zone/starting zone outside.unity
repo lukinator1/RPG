@@ -152,89 +152,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   background: 
   players:
-  - name: 
-    partyposition: 0
-    HP: 0
-    mana: 0
-    lvl: 0
-    xp: 0
-    battleentitysprites: []
-    dialogueentitysprites: []
-  - name: 
-    partyposition: 0
-    HP: 0
-    mana: 0
-    lvl: 0
-    xp: 0
-    battleentitysprites: []
-    dialogueentitysprites: []
-  - name: 
-    partyposition: 0
-    HP: 0
-    mana: 0
-    lvl: 0
-    xp: 0
-    battleentitysprites: []
-    dialogueentitysprites: []
-  - name: 
-    partyposition: 0
-    HP: 0
-    mana: 0
-    lvl: 0
-    xp: 0
-    battleentitysprites: []
-    dialogueentitysprites: []
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   enemies:
-  - name: 
-    partyposition: 0
-    HP: 0
-    mana: 0
-    lvl: 0
-    battleentitysprites: []
-  - name: 
-    partyposition: 0
-    HP: 0
-    mana: 0
-    lvl: 0
-    battleentitysprites: []
-  - name: 
-    partyposition: 0
-    HP: 0
-    mana: 0
-    lvl: 0
-    battleentitysprites: []
-  - name: 
-    partyposition: 0
-    HP: 0
-    mana: 0
-    lvl: 0
-    battleentitysprites: []
-  - name: 
-    partyposition: 0
-    HP: 0
-    mana: 0
-    lvl: 0
-    battleentitysprites: []
-  - name: 
-    partyposition: 0
-    HP: 0
-    mana: 0
-    lvl: 0
-    battleentitysprites: []
-  - name: 
-    partyposition: 0
-    HP: 0
-    mana: 0
-    lvl: 0
-    battleentitysprites: []
-  - name: 
-    partyposition: 0
-    HP: 0
-    mana: 0
-    lvl: 0
-    battleentitysprites: []
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   battleconditions: []
   weather: 
+  previousscene: 
 --- !u!4 &40526464
 Transform:
   m_ObjectHideFlags: 0
@@ -829,9 +762,11 @@ GameObject:
   - component: {fileID: 668130184}
   - component: {fileID: 668130186}
   - component: {fileID: 668130185}
+  - component: {fileID: 668130187}
+  - component: {fileID: 668130189}
   m_Layer: 0
   m_Name: HealthPotion
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -845,7 +780,7 @@ Transform:
   m_GameObject: {fileID: 668130183}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -5.45, y: -0.25, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -860,16 +795,16 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 2.56, y: 2.56}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
@@ -914,18 +849,58 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 5520c2907836e4cb3a086ef7b29da6d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &668130187
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668130183}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 2.56, y: 2.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &668130189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668130183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 764dc1691bf564a8492f0feb00684c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item:
+    name: Health Potion
 --- !u!1 &685366098
 GameObject:
   m_ObjectHideFlags: 0
@@ -2046,6 +2021,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6439bd58ea30f4447973e8ffa56ac0c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levels:
+  - 10
+  - 24
+  - 72
+  - 112
+  - 120
 --- !u!4 &1337067914
 Transform:
   m_ObjectHideFlags: 0
@@ -2980,6 +2961,77 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.03
       objectReference: {fileID: 0}
+    - target: {fileID: 3476887914311246400, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.HP
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3476887914311246400, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.lvl
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3476887914311246400, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.mana
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3476887914311246400, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.name
+      value: lukinator1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3476887914311246400, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.partyposition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3476887914311246400, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.inventory.items.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3476887914311246400, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.battleentitysprites.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3476887914311246400, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.battleentitysprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: ffe2644baabc3c34aa5842a62148a548,
+        type: 3}
+    - target: {fileID: 3476887914311246400, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: localPlayerCharacterData.inventory.items.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692160116425302975, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.HP
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692160116425302975, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.lvl
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692160116425302975, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.mana
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692160116425302975, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.name
+      value: man2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692160116425302975, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.partyposition
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4692160116425302975, guid: 37c0b6ca732f18644b948a954d6e3ef8,
         type: 3}
       propertyPath: localPlayerCharacterData.HP
@@ -3002,9 +3054,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4692160116425302975, guid: 37c0b6ca732f18644b948a954d6e3ef8,
         type: 3}
+      propertyPath: playerdata.inventory.items.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692160116425302975, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
       propertyPath: localPlayerCharacterData.partyposition
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4692160116425302975, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.battleentitysprites.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692160116425302975, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.battleentitysprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: ff8ac735d1ed6d942a4a743f77699b84,
+        type: 3}
     - target: {fileID: 4692160116425302975, guid: 37c0b6ca732f18644b948a954d6e3ef8,
         type: 3}
       propertyPath: localPlayerCharacterData.battleentitysprites.Array.data[0]
@@ -3015,6 +3083,31 @@ PrefabInstance:
         type: 3}
       propertyPath: localPlayerCharacterData.battleentitysprites.Array.data[1]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692160117640057451, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.HP
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692160117640057451, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.lvl
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692160117640057451, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.mana
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692160117640057451, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.name
+      value: man3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692160117640057451, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.partyposition
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4692160117640057451, guid: 37c0b6ca732f18644b948a954d6e3ef8,
         type: 3}
@@ -3038,9 +3131,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4692160117640057451, guid: 37c0b6ca732f18644b948a954d6e3ef8,
         type: 3}
+      propertyPath: playerdata.inventory.items.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692160117640057451, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
       propertyPath: localPlayerCharacterData.partyposition
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 4692160117640057451, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.battleentitysprites.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692160117640057451, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.battleentitysprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: ff8ac735d1ed6d942a4a743f77699b84,
+        type: 3}
     - target: {fileID: 4692160117640057451, guid: 37c0b6ca732f18644b948a954d6e3ef8,
         type: 3}
       propertyPath: localPlayerCharacterData.battleentitysprites.Array.data[0]
@@ -3055,6 +3164,31 @@ PrefabInstance:
     - target: {fileID: 4801887305924468069, guid: 37c0b6ca732f18644b948a954d6e3ef8,
         type: 3}
       propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553473186060146655, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.HP
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553473186060146655, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.lvl
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553473186060146655, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.mana
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553473186060146655, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.name
+      value: man1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553473186060146655, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.partyposition
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5553473186060146655, guid: 37c0b6ca732f18644b948a954d6e3ef8,
@@ -3079,9 +3213,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5553473186060146655, guid: 37c0b6ca732f18644b948a954d6e3ef8,
         type: 3}
+      propertyPath: playerdata.inventory.items.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553473186060146655, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
       propertyPath: localPlayerCharacterData.partyposition
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5553473186060146655, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.battleentitysprites.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5553473186060146655, guid: 37c0b6ca732f18644b948a954d6e3ef8,
+        type: 3}
+      propertyPath: playerdata.battleentitysprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: ff8ac735d1ed6d942a4a743f77699b84,
+        type: 3}
     - target: {fileID: 5553473186060146655, guid: 37c0b6ca732f18644b948a954d6e3ef8,
         type: 3}
       propertyPath: localPlayerCharacterData.battleentitysprites.Array.data[0]
