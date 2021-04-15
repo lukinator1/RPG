@@ -4,13 +4,10 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class NPCData
+public class NPCData : UnitData
 {
-    public string name;
-    public float HP;
-    public float mana;
-    public float lvl;
     public NPCDialogue npcDialogue;
+    public Item[] items; 
     public Sprite[] dialogueentitysprites;
     // Start is called before the first frame update
     void Start()

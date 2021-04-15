@@ -11,7 +11,18 @@ public class Inventory
     // Start is called before the first frame update
     void Start()
     {
-         
+        Debug.Log("o.0.o0-");
+        if (InventoryGlobalData.inventoryglobalinstance.globalinventory.Count < items.Length)
+        {
+            InventoryGlobalData.inventoryglobalinstance.globalinventory.AddRange(items);
+            Debug.Log("sent");
+        }
+        else //would probably check for differences between duplicate items here
+        {
+            items[0] = InventoryGlobalData.inventoryglobalinstance.globalinventory[0];
+            Debug.Log("received");
+        }
+
     }
 
     // Update is called once per frame
@@ -23,7 +34,12 @@ public class Inventory
     public bool addToInventory(Item item) //returns true if successful, false if not
     {
         if (spaceremaining != 0) {
+            //Item i = new Item();
+            //i.name = "ASDF";
+            //UnityEngine.Object.DontDestroyOnLoad(i.gameObject);
             items[firstopenspace] = item;
+            Debug.Log(items[firstopenspace].name);
+            //items[firstopenspace].dontDestroy();
             spaceremaining--;
             calculateFirstOpenSpace(firstopenspace + 1);
             return true;

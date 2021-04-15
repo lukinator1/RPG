@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 [Serializable]
-public class PlayerData
+public class PlayerData : UnitData
 {
-    public string name;
     public int partyposition;
-    public int lvl;
-    public float HP;
     public float mana;
-    public Inventory inventory;
     public float currency;
     public float xp;
+    public Inventory inventory = new Inventory();
+    public Sprite icon;
     public Sprite[] battleentitysprites;
     public Sprite[] dialogueentitysprites;
     //SpriteRenderer m_SpriteRenderer;

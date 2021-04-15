@@ -4,13 +4,10 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class EnemyData
+public class EnemyData : UnitData
 {
-    public string name;
     public int partyposition;
-    public float HP;
     public float mana;
-    public float lvl;
     public float expgiven;
     public float currencygiven;
     public Item[] items;

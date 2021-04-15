@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 public class BattleScene : MonoBehaviour
 {
     public AudioSource currentsong;
     public AudioClip[] battlescenesongs;
+    public GameObject statusbox;
     PlayerCharacter[] players;
     Enemy[] enemies;
     public int playersalive;
@@ -29,6 +32,11 @@ public class BattleScene : MonoBehaviour
         weather = BattleSceneGlobalData.battlesceneglobalinstance.weather;
         previousscene = BattleSceneGlobalData.battlesceneglobalinstance.previousscene;
         currentplayer = GameObject.Find("PlayerBattleEntity 1");
+    }
+
+    void Awake()
+    {
+        //statusbox.GetComponentInChildren<Text>().text = "The battle has begun!";
     }
 
     // Update is called once per frame

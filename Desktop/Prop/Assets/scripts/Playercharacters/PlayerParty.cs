@@ -13,6 +13,7 @@ public class PlayerParty : MonoBehaviour //representing the player party sprite/
     public AudioSource playeraudio;
     public AudioClip[] audioclips;
     List<GameObject> nearbygameobjects = new List<GameObject>();
+    public GameObject menu;
     bool nearitem = false;
     int walkingsurfaceclip; //0 = grass
     bool walking = false; //walking toggle to determine audio
@@ -42,6 +43,11 @@ public class PlayerParty : MonoBehaviour //representing the player party sprite/
                 }
             }
 
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            menu.SetActive(true);
+        }
+
         if (Input.GetKeyDown(KeyCode.P))
         {
             Debug.Log(nearbygameobjects.Count.ToString() + " nearbygameobjects: ");
@@ -55,6 +61,17 @@ public class PlayerParty : MonoBehaviour //representing the player party sprite/
         {
             Debug.Log(GameObject.Find("Main Character").GetComponentInChildren<PlayerCharacter>().playerdata.inventory.spaceremaining.ToString() + GameObject.Find("Main Character").GetComponentInChildren<PlayerCharacter>().playerdata.inventory.firstopenspace.ToString());
             Debug.Log(GameObject.Find("Main Character").GetComponentInChildren<PlayerCharacter>().playerdata.inventory.items[0].name);
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            GameObject.Find("Main Character").GetComponentInChildren<PlayerCharacter>().useItem(GameObject.Find("Main Character").GetComponentInChildren<PlayerCharacter>().playerdata.inventory.items[0]);
+            Debug.Log("Item used.");
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Debug.Log("HP: " + GameObject.Find("Main Character").GetComponentInChildren<PlayerCharacter>().playerdata.HP);
         }
 
         if (rigidbody.velocity == notmoving && walking == true)

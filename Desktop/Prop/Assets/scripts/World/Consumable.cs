@@ -6,24 +6,9 @@ using UnityEngine;
 [Serializable]
 public class Consumable : Item
 {
-    // Start is called before the first frame update
-    void Start()
+
+    /*public virtual void Use(Unit unit)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public override void Use() {
-        //Consume();
-    }
-
-    public virtual void Consume(GameObject unit)
-    {
-
-    }
+        Debug.Log("D:");
+    }*/
 }

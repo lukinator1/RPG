@@ -6,26 +6,40 @@ using UnityEngine;
 [Serializable]
 public class Item
 {
-    public string name = ""; //empty string is a blank item
-
-    /*public Item(Item otheritem)
-    {
-        name = otheritem.name;
-    }*/
-    // Start is called before the first frame update
+    public string name = ""; //may switch to itemdata at some point
     void Start()
     {
-        
+        if (!ItemGlobalData.itemsglobalinstance.globalitems.ContainsKey(name))
+        {
+            ItemGlobalData.itemsglobalinstance.globalitems.Add(name, name);
+        }
+        else //would probably check for differences between duplicate items here
+        {
+            name = ItemGlobalData.itemsglobalinstance.globalitems[name];
+        }
     }
 
-    // Update is called once per frame
+    /*void Awake() { 
+            DontDestroyOnLoad(this.gameObject);
+    }*/
+
+    public void dontDestroy()
+    {
+        //DontDestroyOnLoad(this.gameObject);
+    }
+
     void Update()
     {
-        
+
     }
 
-    public virtual void Use()
+    public void saveItemToGlobalInstance()
     {
+        ItemGlobalData.itemsglobalinstance.globalitems[name] = name;
+    }
 
+    public virtual void Use(Unit unit)
+    {
+        Debug.Log("0.0");
     }
 }

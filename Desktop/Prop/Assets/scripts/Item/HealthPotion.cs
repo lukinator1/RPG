@@ -1,23 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
+[Serializable]
 public class HealthPotion : Consumable
 {
-    // Start is called before the first frame update
-    void Start()
+    /*void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
+        ontDestroyOnLoad(this.gameObject);
+    }*/
+    public override void Use(Unit unit)
     {
-        
-    }
-
-    public override void Consume(GameObject unit)
-    {
-        //player.playerdata.
+        unit.getUnitData().HP += 5.0f;
+        Debug.Log("Consumed HP Potion");
     }
 }

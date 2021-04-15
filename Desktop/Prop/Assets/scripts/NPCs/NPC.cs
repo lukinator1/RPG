@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPC : MonoBehaviour
+public class NPC : Unit
 {
     public NPCData localNPCData = new NPCData();
     bool ekeydown = false;

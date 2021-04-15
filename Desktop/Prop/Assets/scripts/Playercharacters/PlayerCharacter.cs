@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class PlayerCharacter : MonoBehaviour
+public class PlayerCharacter : Unit
 {
     public PlayerData playerdata = new PlayerData();
     // Start is called before the first frame update
@@ -30,9 +30,19 @@ public class PlayerCharacter : MonoBehaviour
         PlayerCharacterGlobalData.playercharacterglobalinstance.playercharacters[playerdata.name] = playerdata;
     }
 
+    public override UnitData getUnitData()
+    {
+        return playerdata;
+    }
+
     public void sendDataToBattlescene()
     {
         BattleSceneGlobalData.battlesceneglobalinstance.players[playerdata.partyposition] = this;
+    }
+
+    public override void useItem(Item item)
+    {
+        item.Use(this);
     }
 
     public void calculateLevelUp()

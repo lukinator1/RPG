@@ -5,7 +5,9 @@ using UnityEngine;
 public class BattleEntity : MonoBehaviour
 {
     public SpriteRenderer battleentitityspriterenderer;
-    public GameObject enemyentity;
+    public GameObject battlescene;
+    public GameObject statusbox;
+    public string name;
     public int battleentityposition;
     public float HP;
     public float mana;
@@ -24,6 +26,7 @@ public class BattleEntity : MonoBehaviour
                 //Debug.Log("Battleentityposition: " + battleentityposition.ToString() + ", playercount: " + BattleSceneGlobalData.battlesceneglobalinstance.players.Length);
                 return;
             }
+            name = BattleSceneGlobalData.battlesceneglobalinstance.players[battleentityposition].playerdata.name;
             battleentitysprites = BattleSceneGlobalData.battlesceneglobalinstance.players[battleentityposition].playerdata.battleentitysprites;
             HP = BattleSceneGlobalData.battlesceneglobalinstance.players[battleentityposition].playerdata.HP;
             mana = BattleSceneGlobalData.battlesceneglobalinstance.players[battleentityposition].playerdata.mana;
@@ -40,6 +43,7 @@ public class BattleEntity : MonoBehaviour
                 this.gameObject.SetActive(false);
                 return;
             }
+            name = BattleSceneGlobalData.battlesceneglobalinstance.enemies[battleentityposition].localenemydata.name;
             battleentitysprites = BattleSceneGlobalData.battlesceneglobalinstance.enemies[battleentityposition].localenemydata.battleentitysprites;
             HP = BattleSceneGlobalData.battlesceneglobalinstance.enemies[battleentityposition].localenemydata.HP;
             mana = BattleSceneGlobalData.battlesceneglobalinstance.enemies[battleentityposition].localenemydata.mana;
@@ -53,8 +57,9 @@ public class BattleEntity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (HP <= 0.0f)
+        if (HP <= 0.0f) //check if knocked out
         {
+            HP = 0;
             KOd = true;
             gameObject.GetComponentInChildren<SpriteRenderer>().enabled = false;
         }
@@ -65,7 +70,9 @@ public class BattleEntity : MonoBehaviour
     {
         //enemyentity = GameObject.Find("EnemyBattleEntity 1");
         //enemyentity.GetComponentInChildren<BattleEntity>().HP = 2.0F;
-        enemytarget.GetComponentInChildren<BattleEntity>().HP -= 3.0f;
+        float dmg = 3.0f;
+        enemytarget.GetComponentInChildren<BattleEntity>().HP -= dmg;
+        statusbox.GetComponentInChildren<StatusBox>().setText(name + " struck " + enemytarget.GetComponentInChildren<BattleEntity>().name + " for " + dmg.ToString() + " dmg.");
     }
 
     public void Flee()
