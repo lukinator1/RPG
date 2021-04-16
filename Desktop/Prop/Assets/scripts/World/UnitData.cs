@@ -8,6 +8,7 @@ public class UnitData
 {
     public string name;
     public int lvl;
+    public float maxHP;
     public float HP;
     // Start is called before the first frame update
     void Start()

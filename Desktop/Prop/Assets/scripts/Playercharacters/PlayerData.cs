@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerData : UnitData
 {
     public int partyposition;
+    public float maxmana;
     public float mana;
     public float currency;
     public float xp;

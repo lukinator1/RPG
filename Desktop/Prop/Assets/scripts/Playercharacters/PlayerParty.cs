@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerParty : MonoBehaviour //representing the player party sprite/entity that you'll see in the open world
 {
-    List<PlayerCharacter> playerchars;
+    public List<PlayerCharacter> playerchars;
     public int partysize;
     public float speed;
     public Rigidbody2D rigidbody;
@@ -24,6 +24,10 @@ public class PlayerParty : MonoBehaviour //representing the player party sprite/
         {
             playerchars.AddRange(this.gameObject.GetComponentsInChildren<PlayerCharacter>());
         }*/
+        playerchars.Add(GameObject.Find("Main Character").GetComponentInChildren<PlayerCharacter>());
+        playerchars.Add(GameObject.Find("Party Character 1").GetComponentInChildren<PlayerCharacter>());
+        playerchars.Add(GameObject.Find("Party Character 2").GetComponentInChildren<PlayerCharacter>());
+        playerchars.Add(GameObject.Find("Party Character 3").GetComponentInChildren<PlayerCharacter>());
         playeraudio.clip = audioclips[0];
     }
     
@@ -212,5 +216,17 @@ public class PlayerParty : MonoBehaviour //representing the player party sprite/
                 Debug.Log("I'm out of inventory space");
             }
         }
+    }
+
+    void addToParty(PlayerCharacter playercharacter)
+    {
+        playerchars.Add(playercharacter);
+        partysize++;
+    }
+
+    void removeFromParty(PlayerCharacter playercharacter)
+    {
+        playerchars.Remove(playercharacter);
+        partysize--;
     }
 }
