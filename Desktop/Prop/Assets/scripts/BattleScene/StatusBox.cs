@@ -7,6 +7,8 @@ using System.Text;
 public class StatusBox : MonoBehaviour
 {
     public Text statusboxtext;
+    bool mutex = false;
+    IEnumerator currenttextanimation;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +17,7 @@ public class StatusBox : MonoBehaviour
 
     void Awake()
     {
-        setText("The battle has begun!");
+        setText("The battle has begun!", false);
     }
 
     // Update is called once per frame
@@ -24,9 +26,16 @@ public class StatusBox : MonoBehaviour
         //setText("O.O.O.O.O");   
     }
 
-    public void setText(string txt)
-    { 
+    public void setText(string txt, bool mutex)
+    {
+        /*if (this.mutex)
+        {
+            Debug.Log(txt + " returned!");
+            return;
+        }
+        this.mutex = mutex;*/
         char[] letters = txt.ToCharArray();
+        currenttextanimation = textAnimation(txt);
         StartCoroutine(textAnimation(txt));
     }
 
@@ -41,5 +50,10 @@ public class StatusBox : MonoBehaviour
             statusboxtext.text = statustxt.ToString();
             i++;
         }
+        /*if (this.mutex)
+        {
+            yield return new WaitForSeconds(5.0f);
+        }
+        this.mutex = false;*/
     }
 }

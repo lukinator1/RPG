@@ -6,16 +6,18 @@ using UnityEngine.EventSystems;
 
 public class ActionsMenuSelect : MonoBehaviour
 {
+    public BattleScene battlescene;
+    BattleEntity currentplayer;
+    public Button magicbutton;
     bool choosingaction = true;
-    int actionmenuselection = 1;
-    // Start is called before the first frame update
+    public int actionmenuselection = 1;
     void Start()
     {
         actionmenuselection = 1;
+        //magicbutton.onClick.AddListener(() => showMagicMenu(battlescene.currentplayer.GetComponentInChildren<PlayerCharacter>));
         GameObject.Find("Menupointer1").GetComponentInChildren<Image>().enabled = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Y))
@@ -25,7 +27,7 @@ public class ActionsMenuSelect : MonoBehaviour
         }
         if (choosingaction)
         {
-            if ((Input.GetKeyDown(KeyCode.UpArrow) ^ Input.GetKeyDown(KeyCode.DownArrow) ^ Input.GetKeyDown(KeyCode.LeftArrow) ^ Input.GetKeyDown(KeyCode.RightArrow) ^ (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))) == true) //only accept 1 kind of input at a time
+            if ((Input.GetKeyDown(KeyCode.UpArrow) ^ Input.GetKeyDown(KeyCode.DownArrow) ^ Input.GetKeyDown(KeyCode.LeftArrow) ^ Input.GetKeyDown(KeyCode.RightArrow) ^ (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))) == true && (battlescene.bscenepaused == false)) //only accept 1 kind of input at a time
             {
                 if (Input.GetKeyDown(KeyCode.DownArrow)) //move pointer around
                 {
@@ -100,7 +102,7 @@ public class ActionsMenuSelect : MonoBehaviour
                 else if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0)) //attack!!!!
                 {
                     GameObject.Find("Menupointer" + (actionmenuselection).ToString()).GetComponentInChildren<Image>().enabled = false;
-                    choosingaction = false;
+                    //choosingaction = false;
                     Debug.Log("actionmenuselection" + actionmenuselection);
                     if (actionmenuselection == 1)
                     {

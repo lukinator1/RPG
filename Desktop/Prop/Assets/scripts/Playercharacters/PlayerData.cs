@@ -10,6 +10,7 @@ public class PlayerData : UnitData
     public float mana;
     public float currency;
     public float xp;
+    public Dictionary<string, Spell> spells = new Dictionary<string, Spell>();
     public Inventory inventory = new Inventory();
     public Sprite icon;
     public Sprite[] battleentitysprites;
@@ -17,24 +18,8 @@ public class PlayerData : UnitData
     //SpriteRenderer m_SpriteRenderer;
     //public SpriteRenderer palyersprite;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //m_SpriteRenderer = GetComponent<SpriteRenderer>();
-        //palyersprite = GetComponent<SpriteRenderer>();
-    }
-
-    // Update is called once per frame
-    void Update()
+    public PlayerData()
     {
         
-    }
-
-    void transferStats(PlayerData player)
-    {
-        player.HP = HP;
-        player.mana = mana;
-        player.lvl = lvl;
-        player.xp = xp;
     }
 }

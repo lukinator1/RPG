@@ -9,8 +9,9 @@ public class BattleScene : MonoBehaviour
 {
     public AudioSource currentsong;
     public AudioClip[] battlescenesongs;
-    public GameObject statusbox;
-    PlayerCharacter[] players;
+    public StatusBox statusbox;
+    public ResultsScreen resultsscreen;
+    public PlayerCharacter[] players; 
     Enemy[] enemies;
     public int playersalive;
     public int enemiesalive;
@@ -19,7 +20,7 @@ public class BattleScene : MonoBehaviour
     bool choosingenemy;
     public string previousscene;
     public GameObject currentplayer;
-    public bool leavecombat; 
+    public bool bscenepaused = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +33,7 @@ public class BattleScene : MonoBehaviour
         weather = BattleSceneGlobalData.battlesceneglobalinstance.weather;
         previousscene = BattleSceneGlobalData.battlesceneglobalinstance.previousscene;
         currentplayer = GameObject.Find("PlayerBattleEntity 1");
+        bscenepaused = false;
     }
 
     void Awake()
@@ -42,16 +44,31 @@ public class BattleScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (leavecombat)
+        if (bscenepaused == false)
         {
-            leavecombat = false;  //save all relevant player/enemy data here before leaving 
-            SceneManager.LoadScene(previousscene);
+            if (playersalive == 0)
+            {
+                Debug.Log("DEAD");
+                statusbox.setText("Game Over :(", true);
+                battleEnd();
+            }
+            else if (enemiesalive == 0)
+            {
+                Debug.Log("DEAD AGAIN");
+                //statusbox.setText("End of battle.");
+                battleEnd();
+            }
         }
     }
 
     public void playerFlee(GameObject currentplayer)
     {
         currentplayer.GetComponentInChildren<BattleEntity>().Flee();
+    }
+
+    public void playerMagic(GameObject currentplayer)
+    {
+
     }
 
     public void battleEnd() //result calculations here
@@ -81,7 +98,16 @@ public class BattleScene : MonoBehaviour
         currentsong.Stop();
         currentsong.clip = battlescenesongs[1];
         currentsong.Play();
-        GameObject.Find("ResultsScreen").GetComponentInChildren<ResultsScreen>().showResultsScreen(); //pass in result calculations to results screen
+        bscenepaused = true;
+        Debug.Log("end here");
+        statusbox.setText("End of battle.", true);
+        //statusbox.cancelcoroutine() something like this
+        resultsscreen.showResultsScreen(); //pass in result calculations to results screen
+    }
+
+    public void exitBattleScene()
+    {
+        SceneManager.LoadScene(previousscene); //save all relevant player/enemy data here before leaving 
     }
 
 }

@@ -9,6 +9,24 @@ public class PlayerCharacter : Unit
     // Start is called before the first frame update
     void Start()
     {
+        Fireball f = new Fireball();
+        addSpell(f);
+        Spell s = new Spell();
+        s.name = "frostbolt";
+        addSpell(s);
+        Spell r = new Spell();
+        r.name = "regenerate";
+        addSpell(r);
+        Spell t = new Spell();
+        t.name = "time warp";
+        addSpell(t);
+        Spell y = new Spell();
+        y.name = "yak attack";
+        addSpell(y);
+        Spell u = new Spell();
+        u.name = "undergrowth";
+        addSpell(u);
+
         if (!PlayerCharacterGlobalData.playercharacterglobalinstance.playercharacters.ContainsKey(playerdata.name))
         {
             PlayerCharacterGlobalData.playercharacterglobalinstance.playercharacters.Add(playerdata.name, playerdata);
@@ -45,6 +63,16 @@ public class PlayerCharacter : Unit
         item.Use(this);
     }
 
+    public float xpToNextLvl()
+    {
+        if (playerdata.lvl == 100)
+        {
+            return -1; //code for when max lvl reached
+        }
+
+        return PlayerCharacterGlobalData.playercharacterglobalinstance.levels[playerdata.lvl] - playerdata.xp;
+    }
+
     public void calculateLevelUp()
     {
         int lvl = playerdata.lvl;
@@ -64,6 +92,11 @@ public class PlayerCharacter : Unit
         {
             playerdata.xp = -1;
         }
+    }
+
+    public void addSpell(Spell spell)
+    {
+        playerdata.spells.Add(spell.name, spell);
     }
 
 }

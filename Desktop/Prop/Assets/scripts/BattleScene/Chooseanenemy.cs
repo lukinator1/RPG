@@ -1,11 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Chooseanenemy : MonoBehaviour
 {
+    public BattleScene battlescene;
+    public GameObject magicmenu;
+    public GameObject actionsmenu;
+    public BattleEntity[] battleentitytargets; 
     int target = 1;
-    bool choosingenemy = false;
+    string currentaction;
+    int targetstochoose;
+    bool[] chosentargets = new bool[12]; //max allies + maxenemies
+    int actiontype; //0 = attack, 1 = skill, 2 = magic
     // Start is called before the first frame update
     void Start()
     {
@@ -15,51 +23,139 @@ public class Chooseanenemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (choosingenemy == true)
-        {
-            if ((Input.GetKeyDown(KeyCode.UpArrow) ^ Input.GetKeyDown(KeyCode.DownArrow) ^ Input.GetKeyDown(KeyCode.LeftArrow) ^ Input.GetKeyDown(KeyCode.RightArrow) ^ (Input.GetKeyDown(KeyCode.T) || Input.GetMouseButtonDown(0))) == true) //only accept 1 kind of input at a time
+            if ((Input.GetKeyDown(KeyCode.UpArrow) ^ Input.GetKeyDown(KeyCode.DownArrow) ^ Input.GetKeyDown(KeyCode.LeftArrow) ^ Input.GetKeyDown(KeyCode.RightArrow) ^ (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0)) ^ Input.GetKeyDown(KeyCode.C)) == true && (battlescene.bscenepaused == false)) //only accept 1 kind of input at a time
             {
-                if (Input.GetKeyDown(KeyCode.DownArrow)) //move pointer around
+                if (Input.GetKeyDown(KeyCode.C))
                 {
+                    //choosingenemy = false;
                     GameObject.Find("Enemypointer" + (target).ToString()).GetComponentInChildren<SpriteRenderer>().enabled = false;
+                    if (actiontype == 0)
+                    {
+                        //actionmenu
+                    }
+                    else if (actiontype == 0)
+                    {
+                        //skillmenu
+                    }
+                    else if (actiontype == 2)
+                    {
+                        magicmenu.GetComponentInChildren<MagicMenu>().enabled = true;
+                        this.enabled = false;
+                    }
+                }
+                else if (Input.GetKeyDown(KeyCode.DownArrow)) //move pointer around
+                {
+                    if (chosentargets[target - 1] != true)
+                    {
+                        GameObject.Find("Enemypointer" + (target).ToString()).GetComponentInChildren<SpriteRenderer>().enabled = false;
+                    }
                     findNextBattleEntityBelow();
                     GameObject.Find("Enemypointer" + (target).ToString()).GetComponentInChildren<SpriteRenderer>().enabled = true;
                 }
                 else if (Input.GetKeyDown(KeyCode.UpArrow)) 
                 {
-                    GameObject.Find("Enemypointer" + (target).ToString()).GetComponentInChildren<SpriteRenderer>().enabled = false;
+                    if (chosentargets[target - 1] != true)
+                    {
+                        GameObject.Find("Enemypointer" + (target).ToString()).GetComponentInChildren<SpriteRenderer>().enabled = false;
+                    }
                     findNextBattleEntityAbove();
                     GameObject.Find("Enemypointer" + (target).ToString()).GetComponentInChildren<SpriteRenderer>().enabled = true;
                 }
                 else if (Input.GetKeyDown(KeyCode.LeftArrow)) //move pointer around
                 {
-                    GameObject.Find("Enemypointer" + (target).ToString()).GetComponentInChildren<SpriteRenderer>().enabled = false;
+                    if (chosentargets[target - 1] != true)
+                    {
+                        GameObject.Find("Enemypointer" + (target).ToString()).GetComponentInChildren<SpriteRenderer>().enabled = false;
+                    }
                     findLeftBattleEntity();
                     GameObject.Find("Enemypointer" + (target).ToString()).GetComponentInChildren<SpriteRenderer>().enabled = true;
                 }
                 else if (Input.GetKeyDown(KeyCode.RightArrow)) //move pointer around
                 {
-                    GameObject.Find("Enemypointer" + (target).ToString()).GetComponentInChildren<SpriteRenderer>().enabled = false;
+                    if (chosentargets[target - 1] != true)
+                    {
+                        GameObject.Find("Enemypointer" + (target).ToString()).GetComponentInChildren<SpriteRenderer>().enabled = false;
+                    }
                     findRightBattleEntity();
                     GameObject.Find("Enemypointer" + (target).ToString()).GetComponentInChildren<SpriteRenderer>().enabled = true;
                 }
-                else if (Input.GetKeyDown(KeyCode.T) || Input.GetMouseButtonDown(0)) //attack!!!!
+                else if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0)) //attack!!!!
                 {
-                    GameObject.Find("Enemypointer" + (target).ToString()).GetComponentInChildren<SpriteRenderer>().enabled = false;
-                    choosingenemy = false;
-                    GameObject player = GameObject.Find("Battlescene").GetComponentInChildren<BattleScene>().currentplayer;
-                    Debug.Log("attacking target: battleentity" + target.ToString());
-                    player.GetComponentInChildren<BattleEntity>().Attack(GameObject.Find("EnemyBattleEntity " + target.ToString()));
+                    if (chosentargets[target - 1] == false)
+                    {
+                        chosentargets[target - 1] = true;
+                        targetstochoose--;
+                        if (targetstochoose == 0)
+                        {
+                            BattleEntity playerbattleentity = battlescene.currentplayer.GetComponentInChildren<BattleEntity>();
+                            PlayerCharacter player = battlescene.players[playerbattleentity.battleentityposition];
+                            if (actiontype == 0)
+                            {
+                                GameObject.Find("Enemypointer" + (target).ToString()).GetComponentInChildren<SpriteRenderer>().enabled = false;
+                                Debug.Log("attacking target: battleentity" + target.ToString());
+                                BattleEntity bentity = new BattleEntity();
+                                bentity = battleentitytargets[target];
+                                playerbattleentity.Attack(battleentitytargets[target - 1]);
+                                actionsmenu.GetComponentInChildren<ActionsMenuSelect>().enabled = true;
+                                GameObject.Find("Menupointer1").GetComponentInChildren<Image>().enabled = true;
+                            }
+                            else if (actiontype == 1)
+                            {
+                                int skill = 0;
+                            }
+                            else if (actiontype == 2)
+                            {
+                                GameObject.Find("Enemypointer" + (target).ToString()).GetComponentInChildren<SpriteRenderer>().enabled = false;
+                                List<BattleEntity> spelltargets = new List<BattleEntity>();
+                                for (int i = 0; i < 12; i++)
+                                {
+                                    if (chosentargets[i] == true)
+                                    {
+                                        spelltargets.Add(battleentitytargets[i]);
+                                        Debug.Log("casting upon target: battleentity" + (i + 1).ToString());
+                                    }
+                                }
+                                playerbattleentity.castMagic(player.playerdata.spells[currentaction], spelltargets);
+                                MagicMenu magicmenuclass = magicmenu.GetComponentInChildren<MagicMenu>();
+                                magicmenuclass.enabled = true;
+                                magicmenuclass.magicmenucursors[magicmenuclass.magicmenuselection].SetActive(true);
+                            }
+                            this.enabled = false;
+                    }
+                    }
+                    else
+                    {
+                        //error pressing sound effect can go here
+                    }
                 }
             }
-        }
     }
 
-    public void chooseEnemy()
+    public void chooseEnemy(string action, int targetstochoose, int actiontype) //should be 1-8
     {
+        this.actiontype = actiontype;
+        if (actiontype == 0)
+        {
+            int actionmenu = 0;
+        }
+        else if (actiontype == 0)
+        {
+            int skillmenu = 1;
+        }
+        else if (actiontype == 2)
+        {
+            //magicmenu.SetActive(false);
+            //magicmenu.GetComponentInChildren<MagicMenu>().enabled = false;
+        }
+        this.enabled = true;
+        currentaction = action;
+        this.targetstochoose = targetstochoose;
+        for (int i = 0; i < 12; i++)
+        {
+            chosentargets[i] = false;
+        }
         findTopmostAliveBattleEntity();
         GameObject.Find("Enemypointer" + target.ToString()).GetComponentInChildren<SpriteRenderer>().enabled = true; //set pointer
-        choosingenemy = true; 
     }
 
     void findTopmostAliveBattleEntity()

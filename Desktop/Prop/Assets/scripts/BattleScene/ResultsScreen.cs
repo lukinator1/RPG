@@ -4,28 +4,30 @@ using UnityEngine;
 
 public class ResultsScreen : MonoBehaviour
 {
-    bool resultsscreen = false; 
     // Start is called before the first frame update
     void Start()
     {
-
+        //this.gameObject.SetActive(false);
+        //this.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (resultsscreen) //probably should be a button
-        {
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
+
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
             {
-                GameObject.Find("Battlescene").GetComponentInChildren<BattleScene>().leavecombat = true; 
+                this.gameObject.SetActive(false);
+                //this.enabled = false;
+                Debug.Log("pop");
+                GameObject.Find("Battlescene").GetComponentInChildren<BattleScene>().exitBattleScene();
             }
-        }
     }
 
     public void showResultsScreen()
     {
-        resultsscreen = true; //results screen/calculations here
+        this.gameObject.SetActive(true); //results screen/calculations here
+        //this.enabled = true;
         /*AudioSource battlesong = GameObject.Find("BattleScene").GetComponentInChildren<BattleScene>().currentsong;
         battlesong.stop;
         battlesong.clip = PlayerObject.GetComponentInChildren<BattleScene>().battlescenesongs[1];

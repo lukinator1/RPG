@@ -21,11 +21,6 @@ public class MenuSelect : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
         {
             GameObject.Find("Menubutton" + menuchoice.ToString()).GetComponentInChildren<Button>().onClick.Invoke();
-            /*switch (menuchoice):
-                case 0:
-                GameObject.Find("")
-                break; */
-                       
         }
         if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.RightArrow)) ^ (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.LeftArrow)) == false) //don't accept pressing both at same time
         {
